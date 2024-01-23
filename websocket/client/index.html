@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Socket Thing1</title>
+    </head>
+
+    <body>
+        Client1
+        <button onclick="sendArm()">Send arm</button>
+        <button onclick="sendChest()">Send chest</button>
+        <button onclick="sendWrist()">Send Wrist</button>
+        <h1>Hi</h1>
+        <!-- <button onclick="sendPace1()">Send foot1</button>
+        <button onclick="sendPace2()">Send foot2</button> -->
+    </body>
+    <script>
+        // Create WebSocket connection.
+        const socket = new WebSocket('ws://192.168.172.162:5000');
+
+        // Connection opened
+        socket.addEventListener('open', function (event)
+        {
+            console.log('Connected to the WS Server!')
+        });
+
+        // Connection closed
+        socket.addEventListener('close', function (event)
+        {
+            console.log('Disconnected from the WS Server!')
+        });
+
+        // Listen for messages
+        socket.addEventListener('message', function (event)
+        {
+            console.log('Message from server ', event.data);
+        });
+        // Send a msg to the websocket
+        const sendArm = () =>
+        {
+            socket.send('1\0');
+        }
+        const sendWrist = () =>
+        {
+            socket.send('2\0');
+        }
+        const sendChest = () =>
+        {
+            socket.send('3\0');
+        }
+        const sendPace1 = () =>
+        {
+            socket.send('3\0');
+        }
+        const sendPace2 = () =>
+        {
+            socket.send('5\0');
+        }
+    </script>
+
+</html>
